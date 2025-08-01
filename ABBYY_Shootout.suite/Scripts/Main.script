@@ -1,0 +1,31 @@
+﻿set myExcelDB to {type:"excel", file:ResourcePath("ABBYY_IssueList.xlsx"), writable: Yes}
+
+put the number of records of myExcelDB into myRecordCount
+
+set i = 1
+
+put OCRVersion() into myOCRVersion
+
+If myOCRVersion = ...
+	... "12.2" :
+		put "TwelveTwoPF" into myFieldPF
+	... "12.4" :
+		put "TwelveTwoPF" into myFieldPF
+	... Else
+		LogError "The OCR version is not supported by this script"
+End if
+
+
+Repeat while i <= myRecordCount
+	set myCurrentTest to the record of myExcelDB where "RecNumber" = i
+	put ResourcePath(myCurrentTest.ImageFilename & ".png") into mySUT
+	Connect name:mySUT, type:"screenshot"
+	Wait 3
+	put !"put [[myCurrentTest.Script]] into foo" into myFunction
+	Do myFunction
+	put foo into myCurrentTest.(myFieldPF)
+	Wait 2
+	Disconnect
+	set i = i + 1
+End Repeat
+
