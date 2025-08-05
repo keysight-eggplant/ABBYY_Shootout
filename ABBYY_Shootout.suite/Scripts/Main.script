@@ -12,7 +12,7 @@ If myOCRVersion = ...
 	... "12.2" :
 		put "TwelveTwoPF" into myFieldPF
 	... "12.4" :
-		put "TwelveTwoPF" into myFieldPF
+		put "TwelveFourPF" into myFieldPF
 	... Else
 		LogError "The OCR version is not supported by this script"
 End if
