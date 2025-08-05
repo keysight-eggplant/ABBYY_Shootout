@@ -1,6 +1,8 @@
-﻿set myExcelDB to {type:"excel", file:ResourcePath("ABBYY_IssueList.xlsx"), writable: Yes}
+﻿set myExcelDBOriginal to {type:"excel", file:ResourcePath("ABBYY_IssueList.xlsx"), name:"Original", writable: Yes} -- Original setting from Cleveland Clinic
+set myExcelDBExtraCrispy to {type:"excel", file:ResourcePath("ABBYY_IssueList.xlsx"), name:"Extra Crispy", writable: Yes} -- Dave's recommended search rectangles
 
-put the number of records of myExcelDB into myRecordCount
+put the number of records of myExcelDBOriginal into myRecordCount
+
 
 set i = 1
 
@@ -17,15 +19,22 @@ End if
 
 
 Repeat while i <= myRecordCount
-	set myCurrentTest to the record of myExcelDB where "RecNumber" = i
-	put ResourcePath(myCurrentTest.ImageFilename & ".png") into mySUT
-	Connect name:mySUT, type:"screenshot"
-	Wait 3
-	put !"put [[myCurrentTest.Script]] into foo" into myFunction
-	Do myFunction
-	put foo into myCurrentTest.(myFieldPF)
-	Wait 2
+	
+	Repeat with each item myExcelDB of [myExcelDBOriginal,myExcelDBExtraCrispy]
+		set myCurrentTest to the record of myExcelDB where "RecNumber" = i
+		put ResourcePath(myCurrentTest.ImageFilename & ".png") into mySUT
+		Connect name:mySUT, type:"screenshot"
+		Wait 3
+		put !"put [[myCurrentTest.Script]] into foo" into myFunction
+		Do myFunction
+		put foo into myCurrentTest.(myFieldPF)
+		Wait 2
+		
+	End Repeat
+	
 	Disconnect
+	
 	set i = i + 1
+	
 End Repeat
 
