@@ -1,0 +1,70 @@
+﻿put ([1,223,1920,1035],[0,223,517,1035]) into mySearchAreas
+
+repeat with each item myCurrentSearchArea of mySearchAreas
+	log ReadText(myCurrentSearchArea)
+	HighlightRectangle myCurrentSearchArea, {duration:10}
+	
+	Click text:"0000", waitFor:1, ValidWords:"*", SearchRectangle: myCurrentSearchArea
+	Log "Found it within rectangle:" && myCurrentSearchArea
+	wait 10
+	
+end repeat
+
+Click text:"thunderlenes", waitFor:1
+
+-- Test script with improvement opportunities for RAG+LLM analysis
+
+function processData dataList
+
+	-- Poor variable naming and hardcoded values
+	
+	set x to 10
+	
+	set result to []
+
+	-- Inefficient loop pattern
+	
+	repeat with i from 1 to the number of items in dataList
+		
+		set currentItem to item i of dataList
+		
+		if currentItem > x then
+			
+			put currentItem into the end of result
+			
+		end if
+		
+	end repeat
+	
+	-- Missing error handling
+	
+	return result
+	
+end processData
+
+-- Main execution with magic numbers
+
+set myData to [5, 15, 8, 25, 3, 18]
+
+set filtered to processData(myData)
+
+put "Filtered results: " & filtered
+
+-- Hardcoded delay
+
+wait 5 seconds
+
+set myText to "ABC Activity: Test #1 (ABC-2025-123456ABC.00) blah"
+
+set myItemsInParentheses to <leftParenthesis , some characters, rightParenthesis>
+
+put the match of myItemsInParentheses in myText into myMatch
+
+put trim(myMatch.text,"()")
+
+Wait 5
+
+delete "(" from myText
+
+log myText
+

@@ -1,0 +1,15 @@
+﻿--Connect name:ResourcePath("SP\250819_153131_cap.jpg"), type:"screenshot"
+
+
+//*** [SEMIC] 
+//*** "_" Not recognized
+
+//Keysight_Joel: Please use 25.3.100 instead of 25.3.0. My version of 25.3.100 on Windows is able to detect _
+
+put ImageRectangle(text:"Device Name", waitFor:3) into pos
+set pos to pos+[100, -10, 308, 10]
+Assert that ReadText(pos) equals "250811_TEST"
+
+
+
+Disconnect

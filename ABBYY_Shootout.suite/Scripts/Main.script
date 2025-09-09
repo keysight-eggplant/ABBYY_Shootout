@@ -3,7 +3,6 @@ set myExcelDBExtraCrispy to {type:"excel", file:ResourcePath("ABBYY_IssueList.xl
 
 put the number of records of myExcelDBOriginal into myRecordCount
 
-
 set i = 1
 
 put OCRVersion() into myOCRVersion
